@@ -23,4 +23,6 @@ if __name__ == "__main__":
         None,
     )
 
-    repo.insert_product(product)
+    # repo.insert_product(product)
+    prod = repo.get_product_by_foreign_id(6425)
+    print(prod)

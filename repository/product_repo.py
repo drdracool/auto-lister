@@ -75,5 +75,13 @@ class Product_Repo:
             )
             print(f"Product {product.short_name} has been successfully inserted!")
 
-    def get_product(self):
-        pass
+    def get_product_by_foreign_id(self, id: int) -> Product:
+        with sqlite3.connect(self.DB_PATH) as conn:
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            row: sqlite3.Row = cursor.execute(
+                "SELECT * FROM product WHERE foreign_id=?", (id,)
+            ).fetchone()
+            product: Product = Product(*row)
+            print(f"Product with foreign_id {product.foreign_id} fetched.")
+            return product
