@@ -3,6 +3,7 @@ import datetime
 
 class Product:
     id: int
+    foreign_id: int
     name: str
     url: str
     regular_price: int
@@ -21,6 +22,7 @@ class Product:
     def __init__(
         self,
         id: int,
+        foreign_id: int,
         name: str,
         url: str,
         regular_price: int,
@@ -37,6 +39,7 @@ class Product:
         modified_date: datetime.datetime,
     ):
         self.id: int = id
+        self.foreign_id: int = foreign_id
         self.name: str = name
         self.url: str = url
         self.regular_price: int = regular_price

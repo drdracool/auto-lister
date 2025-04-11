@@ -12,6 +12,7 @@ class Product_Repo:
         query = """
         CREATE TABLE IF NOT EXISTS product (
           id INTEGER PRIMARY KEY,
+          foreign_id INTEGER UNIQUE NOT NULL,
           name TEXT NOT NULL,
           url TEXT NOT NULL,
           regular_price INTEGER NOT NULL,
@@ -50,25 +51,29 @@ class Product_Repo:
             cursor = conn.cursor()
             cursor.execute(
                 """
-            INSERT INTO products (name, url, regular_price, selling_price, discount_amount, 
-                                  discount_percentage, image_url, description, stock, additional_image_urls, publish_status, short_name, short_description, modified_date)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """,
+                INSERT INTO product (foreign_id, name, url, regular_price, selling_price, discount_amount, 
+                                      discount_percentage, image_url, description, stock, additional_image_urls, publish_status, short_name, short_description, modified_date)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
                 (
-                    product["name"],
-                    product["url"],
-                    product["regular_price"],
-                    product["selling_price"],
-                    product["discount_amount"],
-                    product["discount_percentage"],
-                    product["image_url"],
-                    product["description"],
-                    product["stock"],
-                    product["additional_image_urls"],
-                    product["publish_status"],
-                    product["short_name"],
-                    product["short_description"],
+                    product.foreign_id,
+                    product.name,
+                    product.url,
+                    product.regular_price,
+                    product.selling_price,
+                    product.discount_amount,
+                    product.discount_percentage,
+                    product.image_url,
+                    product.description,
+                    product.stock,
+                    product.additional_image_urls,
+                    product.publish_status,
+                    product.short_name,
+                    product.short_description,
                     datetime.datetime.now(),
                 ),
             )
             print(f"Product {product.short_name} has been successfully inserted!")
+
+    def get_product(self):
+        pass
